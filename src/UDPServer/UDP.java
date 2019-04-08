@@ -29,6 +29,10 @@ public class UDP {
         this.hostAddress = NetworkUtils.getLocalHostAddress();
     }
 
+    public int getPort() {
+        return this.port;
+    }
+
     public String getHostIPAddress() {
         return this.hostAddress.getHostAddress();
     }
@@ -41,22 +45,22 @@ public class UDP {
         return new byte[bufferLength];
     }
 
-    public void setupListener() throws SocketException {
+    public void setupUnicastSocket() throws SocketException {
         this.datagramSocket = new DatagramSocket(DEFAULT_LISTEN_PORT);
     }
 
-    public void setupListener(int port) throws SocketException {
+    public void setupUnicastSocket(int port) throws SocketException {
         this.port = port;
         this.datagramSocket = new DatagramSocket(this.port);
     }
 
-    public void setUpMulticastSender() throws IOException {
+    public void setUpMulticastSocket() throws IOException {
         this.multicastPort = DEFAULT_MULTICAST_PORT;
         this.multicastAddress = InetAddress.getByName(DEFAULT_MULTICAST_IP);
         this.multicastSocket = new MulticastSocket(this.multicastPort);
     }
 
-    public void setUpMulticastSender(int multicastPort) throws IOException {
+    public void setUpMulticastSocket(int multicastPort) throws IOException {
         this.multicastPort = multicastPort;
         this.multicastAddress = InetAddress.getByName(DEFAULT_MULTICAST_IP);
         this.multicastSocket = new MulticastSocket(this.multicastPort);
@@ -76,15 +80,9 @@ public class UDP {
         return receivedPacket;
     }
 
-    public void sendPacket(byte[] packetContent, String destinationIP, int port) throws IOException {
-        InetAddress destinationAddress = InetAddress.getByName(destinationIP);
-        DatagramPacket sentPacket = new DatagramPacket(packetContent, packetContent.length, destinationAddress, port);
-        this.datagramSocket.send(sentPacket);
-    }
-
     public void sendMulticastPacket(byte[] packetContent) throws IOException {
         DatagramPacket sentPacket = new DatagramPacket(packetContent, packetContent.length,
                 this.multicastAddress, this.multicastPort);
-        this.datagramSocket.send(sentPacket);
+        this.multicastSocket.send(sentPacket);
     }
 }

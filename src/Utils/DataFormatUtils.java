@@ -65,4 +65,12 @@ public class DataFormatUtils {
     public static String byteArrToStr(byte[] data) {
         return new String(data);
     }
+
+    public static int[] byteArrToIntArr(byte[] bytes){
+        int[] intArr = new int[bytes.length];
+        for (int i = 0; i < bytes.length; i++) {
+            intArr[i] = bytes[i];
+        }
+        return intArr;
+    }
 }

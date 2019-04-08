@@ -7,16 +7,16 @@ import java.net.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UDPListener extends UDP{
+public class UDPUnicast extends UDP{
 
-    public UDPListener() throws IOException {
+    public UDPUnicast() throws IOException {
         super();
-        this.setupListener();
+        this.setupUnicastSocket();
     }
 
-    public UDPListener(int port) throws SocketException, UnknownHostException {
+    public UDPUnicast(int port) throws SocketException, UnknownHostException {
         super(port);
-        this.setupListener();
+        this.setupUnicastSocket(port);
     }
 
     public byte[] getPacketAsRawBytes() throws IOException {
@@ -61,14 +61,14 @@ public class UDPListener extends UDP{
         return DataFormatUtils.HEXStrToHEXCharList(this.getPacketAndConvertToHEXStr(bufferLength));
     }
 
-    public void sendPacketAsRawBytes(byte[] packetContent, String destinationIP, int port) throws IOException {
+    public void sendPacket(byte[] packetContent, String destinationIP, int port) throws IOException {
         InetAddress destinationAddress = InetAddress.getByName(destinationIP);
-        DatagramPacket sentPacket = new DatagramPacket(packetContent, packetContent.length,destinationAddress,port);
+        DatagramPacket sentPacket = new DatagramPacket(packetContent, packetContent.length, destinationAddress, port);
         this.datagramSocket.send(sentPacket);
     }
 
-    public void sendPacketAsInt(int[] packetContent, String destinationIP, int port){
-
+    public void sendPacket(int[] packetContent, String destinationIP, int port) throws IOException {
+        this.sendPacket(DataFormatUtils.intArrToByteArr(packetContent), destinationIP, port);
     }
 
     public void sendPacketAsStr(String packetContent, String destinationIP, int port){

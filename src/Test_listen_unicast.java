@@ -1,4 +1,4 @@
-import UDPServer.UDPListener;
+import UDPServer.UDPUnicast;
 import Utils.DataFormatUtils;
 
 import java.io.IOException;
@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 public class Test_listen_unicast {
     public static void main(String[] args) throws IOException {
-        UDPListener udpListener = new UDPListener();
+        UDPUnicast udpListener = new UDPUnicast();
 
         System.out.println("Host IP: " + udpListener.getHostIPAddress());
 
