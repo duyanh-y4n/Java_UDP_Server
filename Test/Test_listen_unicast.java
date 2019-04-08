@@ -11,7 +11,7 @@ public class Test_listen_unicast {
         System.out.println("Host IP: " + udpListener.getHostIPAddress());
 
         while (true) {
-            byte[] data = udpListener.getPacketAsRawBytes(8);
+            byte[] data = udpListener.getPacketBody(8);
             System.out.println("received: " + Arrays.toString(data));
             System.out.println("in Hex form: " + DataFormatUtils.byteArrToHEXCharList(data));
             System.out.println("String form: " + DataFormatUtils.byteArrToStr(data));

@@ -4,8 +4,10 @@ import Utils.DataFormatUtils;
 
 import java.io.IOException;
 import java.net.*;
-import java.util.ArrayList;
 import java.util.List;
+
+// TODO: write unit test
+
 
 public class UDPUnicast extends UDP{
 
@@ -19,69 +21,66 @@ public class UDPUnicast extends UDP{
         this.setupUnicastSocket(port);
     }
 
-    public byte[] getPacketAsRawBytes() throws IOException {
+    //get packet body
+    public byte[] getPacketBody() throws IOException {
         DatagramPacket receivedPacket = this.getPacket();
         return receivedPacket.getData();
     }
 
-    public byte[] getPacketAsRawBytes(int bufferLength) throws IOException {
+    public byte[] getPacketBody(int bufferLength) throws IOException {
         DatagramPacket receivedPacket = this.getPacket(bufferLength);
         return receivedPacket.getData();
     }
 
-    public String getPacketAsStr() throws IOException {
-        return this.cleanStringPacket(new String(this.getPacketAsRawBytes()));
+    public String getPacketBodyAsStr() throws IOException {
+        return this.cleanStringInReceivedPacket(new String(this.getPacketBody()));
     }
 
-    public String getPacketAsStr(int bufferLength) throws IOException {
-        return this.cleanStringPacket(new String(this.getPacketAsRawBytes(bufferLength)));
+    public String getPacketBodyAsStr(int bufferLength) throws IOException {
+        return this.cleanStringInReceivedPacket(new String(this.getPacketBody(bufferLength)));
     }
 
-    public List<Integer> getPacketAsIntList() throws IOException {
-        return DataFormatUtils.byteArrToIntList(this.getPacketAsRawBytes());
+    public List<Integer> getPacketBodyAsIntList() throws IOException {
+        return DataFormatUtils.byteArrToIntList(this.getPacketBody());
     }
 
-    public List<Integer> getPacketAsIntList(int bufferLength) throws IOException {
-        return DataFormatUtils.byteArrToIntList(this.getPacketAsRawBytes(bufferLength));
+    public List<Integer> getPacketBodyAsIntList(int bufferLength) throws IOException {
+        return DataFormatUtils.byteArrToIntList(this.getPacketBody(bufferLength));
     }
 
-    public String getPacketAndConvertToHEXStr() throws IOException {
-        return DataFormatUtils.byteArrToHEXStr(this.getPacketAsRawBytes());
+    public String getPacketBodyAndConvertToHEXStr() throws IOException {
+        return DataFormatUtils.byteArrToHEXStr(this.getPacketBody());
     }
 
-    public String getPacketAndConvertToHEXStr(int bufferLength) throws IOException {
-        return DataFormatUtils.byteArrToHEXStr(this.getPacketAsRawBytes(bufferLength));
+    public String getPacketBodyAndConvertToHEXStr(int bufferLength) throws IOException {
+        return DataFormatUtils.byteArrToHEXStr(this.getPacketBody(bufferLength));
     }
 
-    public List<String> getPacketAndConvertToHEXCharList() throws IOException {
-        return DataFormatUtils.HEXStrToHEXCharList(this.getPacketAndConvertToHEXStr());
+    public List<String> getPacketBodyAndConvertToHEXCharList() throws IOException {
+        return DataFormatUtils.HEXStrToHEXCharList(this.getPacketBodyAndConvertToHEXStr());
     }
 
-    public List<String> getPacketAndConvertToHEXCharList(int bufferLength) throws IOException {
-        return DataFormatUtils.HEXStrToHEXCharList(this.getPacketAndConvertToHEXStr(bufferLength));
+    public List<String> getPacketBodyAndConvertToHEXCharList(int bufferLength) throws IOException {
+        return DataFormatUtils.HEXStrToHEXCharList(this.getPacketBodyAndConvertToHEXStr(bufferLength));
     }
 
-    public void sendPacket(byte[] packetContent, String destinationIP, int port) throws IOException {
-        InetAddress destinationAddress = InetAddress.getByName(destinationIP);
-        DatagramPacket sentPacket = new DatagramPacket(packetContent, packetContent.length, destinationAddress, port);
-        this.datagramSocket.send(sentPacket);
-    }
+    //send packet body methods
 
     public void sendPacket(int[] packetContent, String destinationIP, int port) throws IOException {
         this.sendPacket(DataFormatUtils.intArrToByteArr(packetContent), destinationIP, port);
     }
 
-    public void sendPacketAsStr(String packetContent, String destinationIP, int port){
-
+    public void sendPacket(String packetContent, String destinationIP, int port) throws IOException {
+        this.sendPacket(DataFormatUtils.StrToByteArr(packetContent), destinationIP, port);
     }
 
-    public void sendPacketAsHEXs(ArrayList<String> packetContent, String destinationIP, int port){
-
+    public void sendPacket(List<String> packetContent, String destinationIP, int port) throws IOException {
+        this.sendPacket(DataFormatUtils.HEXCharListToByteArr(packetContent), destinationIP, port);
     }
 
 
-    public String cleanStringPacket(String recieveDataStr) {
-        byte[] data = recieveDataStr.getBytes();
+    public String cleanStringInReceivedPacket(String receiveDataStr) {
+        byte[] data = receiveDataStr.getBytes();
         int pos = data.length - 1;
         while (pos != 0 && data[pos] == 0) {
             pos--;

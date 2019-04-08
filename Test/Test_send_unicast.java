@@ -19,7 +19,7 @@ public class Test_send_unicast {
             System.out.println("String form: " + DataFormatUtils.byteArrToStr(dataSent));
             udpSender.sendPacket(dataSent,udpListener.getHostIPAddress(),udpListener.getPort());
 
-            byte[] data = udpListener.getPacketAsRawBytes(8);
+            byte[] data = udpListener.getPacketBody(8);
             System.out.println("received: " + Arrays.toString(data));
             System.out.println("in Hex form: " + DataFormatUtils.byteArrToHEXCharList(data));
             System.out.println("String form: " + DataFormatUtils.byteArrToStr(data));
