@@ -1,4 +1,4 @@
-import UDPSubClass.UDPListener;
+import UDPServer.UDPListener;
 import Utils.DataFormatUtils;
 
 import java.io.IOException;
@@ -11,10 +11,11 @@ public class Test_listen_unicast {
         System.out.println("Host IP: " + udpListener.getHostIPAddress());
 
         while (true){
-            byte[] data = udpListener.getPacketAsRawBytes(4);
+            byte[] data = udpListener.getPacketAsRawBytes(8);
             if (data.toString().isEmpty()==false){
                 System.out.println("received: " + Arrays.toString(data));
-                System.out.println("in Hex form: " + DataFormatUtils.bytesToHEXArrList(data));
+                System.out.println("in Hex form: " + DataFormatUtils.byteArrToHEXCharList(data));
+                System.out.println("String form: " + DataFormatUtils.byteArrToStr(data));
             }
         }
     }

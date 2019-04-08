@@ -1,4 +1,4 @@
-package UDPSubClass;
+package UDPServer;
 
 import Utils.DataFormatUtils;
 
@@ -43,7 +43,7 @@ public class UDPMuticaster {
     }
 
     public void sendPacket(int[] buffer) throws IOException {
-        DatagramPacket packet = new DatagramPacket(DataFormatUtils.intArrToBytes(buffer), buffer.length, this.multicastAddress, this.multicastPort);
+        DatagramPacket packet = new DatagramPacket(DataFormatUtils.intArrToByteArr(buffer), buffer.length, this.multicastAddress, this.multicastPort);
         this.multicastSocket.send(packet);
     }
 }
