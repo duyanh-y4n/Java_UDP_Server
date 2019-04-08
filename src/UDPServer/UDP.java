@@ -74,5 +74,17 @@ public class UDP {
         DatagramPacket receivedPacket = new DatagramPacket(receiveBuffer, receiveBuffer.length);
         this.datagramSocket.receive(receivedPacket);
         return receivedPacket;
-    };
+    }
+
+    public void sendPacket(byte[] packetContent, String destinationIP, int port) throws IOException {
+        InetAddress destinationAddress = InetAddress.getByName(destinationIP);
+        DatagramPacket sentPacket = new DatagramPacket(packetContent, packetContent.length, destinationAddress, port);
+        this.datagramSocket.send(sentPacket);
+    }
+
+    public void sendMulticastPacket(byte[] packetContent) throws IOException {
+        DatagramPacket sentPacket = new DatagramPacket(packetContent, packetContent.length,
+                this.multicastAddress, this.multicastPort);
+        this.datagramSocket.send(sentPacket);
+    }
 }

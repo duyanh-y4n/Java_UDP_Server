@@ -16,9 +16,5 @@ public class UDPSender extends UDP{
         this.setUpMulticastSender(port);
     }
 
-    public void sendPacketAsRawBytes(byte[] packetContent, String destinationIP, int port) throws IOException {
-
-    }
-
 
 }

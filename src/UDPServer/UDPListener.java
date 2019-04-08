@@ -1,7 +1,6 @@
 package UDPServer;
 
 import Utils.DataFormatUtils;
-import Utils.NetworkUtils;
 
 import java.io.IOException;
 import java.net.*;
@@ -38,28 +37,28 @@ public class UDPListener extends UDP{
         return this.cleanStringPacket(new String(this.getPacketAsRawBytes(bufferLength)));
     }
 
-    public List<Integer> getPacketAsInts() throws IOException {
+    public List<Integer> getPacketAsIntList() throws IOException {
         return DataFormatUtils.byteArrToIntList(this.getPacketAsRawBytes());
     }
 
-    public List<Integer> getPacketAsInts(int bufferLength) throws IOException {
+    public List<Integer> getPacketAsIntList(int bufferLength) throws IOException {
         return DataFormatUtils.byteArrToIntList(this.getPacketAsRawBytes(bufferLength));
     }
 
-    public String getPacketAndConvoertToHEXStr() throws IOException {
+    public String getPacketAndConvertToHEXStr() throws IOException {
         return DataFormatUtils.byteArrToHEXStr(this.getPacketAsRawBytes());
     }
 
-    public String getPacketAndConvoertToHEXStr(int bufferLength) throws IOException {
+    public String getPacketAndConvertToHEXStr(int bufferLength) throws IOException {
         return DataFormatUtils.byteArrToHEXStr(this.getPacketAsRawBytes(bufferLength));
     }
 
-    public List<String> getPacketAndConvertToHEXs() throws IOException {
-        return DataFormatUtils.HEXStrToHEXCharList(this.getPacketAndConvoertToHEXStr());
+    public List<String> getPacketAndConvertToHEXCharList() throws IOException {
+        return DataFormatUtils.HEXStrToHEXCharList(this.getPacketAndConvertToHEXStr());
     }
 
-    public List<String> getPacketAndConvertToHEXs(int bufferLength) throws IOException {
-        return DataFormatUtils.HEXStrToHEXCharList(this.getPacketAndConvoertToHEXStr(bufferLength));
+    public List<String> getPacketAndConvertToHEXCharList(int bufferLength) throws IOException {
+        return DataFormatUtils.HEXStrToHEXCharList(this.getPacketAndConvertToHEXStr(bufferLength));
     }
 
     public void sendPacketAsRawBytes(byte[] packetContent, String destinationIP, int port) throws IOException {
