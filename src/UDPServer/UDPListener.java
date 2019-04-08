@@ -9,49 +9,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UDPListener extends UDP{
-//    private final int DEFAULT_BUFFER_LENGTH = 1024;
-//    private final int DEFAULT_LISTEN_PORT = 8080;
-//    private final String DEFAULT_MULTICAST_IP = "224.0.0.0";
-//    private final int DEFAULT_MULTICAST_PORT = 8080;
-//    private int port;
-//    private InetAddress hostAddress;
-//    private DatagramSocket datagramSocket;
 
     public UDPListener() throws IOException {
-//        this.port = DEFAULT_LISTEN_PORT;
-//        this.datagramSocket = new DatagramSocket(this.port);
-//        this.hostAddress = NetworkUtils.getLocalHostAddress();
         super();
-        super.setupListener();
+        this.setupListener();
     }
 
     public UDPListener(int port) throws SocketException, UnknownHostException {
-//        this.port = port;
-//        this.datagramSocket = new DatagramSocket(this.port);
-//        this.hostAddress = NetworkUtils.getLocalHostAddress();
         super(port);
-        super.setupListener();
-    }
-
-    public byte[] makeDatabuffer() {
-        return new byte[DEFAULT_BUFFER_LENGTH];
-    }
-
-    public byte[] makeDatabuffer(int bufferLength) {
-        return new byte[bufferLength];
+        this.setupListener();
     }
 
     public byte[] getPacketAsRawBytes() throws IOException {
-        byte[] receiveBuffer = makeDatabuffer(DEFAULT_BUFFER_LENGTH);
-        DatagramPacket receivedPacket = new DatagramPacket(receiveBuffer, receiveBuffer.length);
-        this.datagramSocket.receive(receivedPacket);
+        DatagramPacket receivedPacket = this.getPacket();
         return receivedPacket.getData();
     }
 
     public byte[] getPacketAsRawBytes(int bufferLength) throws IOException {
-        byte[] receiveBuffer = makeDatabuffer(bufferLength);
-        DatagramPacket receivedPacket = new DatagramPacket(receiveBuffer, receiveBuffer.length);
-        this.datagramSocket.receive(receivedPacket);
+        DatagramPacket receivedPacket = this.getPacket(bufferLength);
         return receivedPacket.getData();
     }
 
@@ -87,7 +62,7 @@ public class UDPListener extends UDP{
         return DataFormatUtils.HEXStrToHEXCharList(this.getPacketAndConvoertToHEXStr(bufferLength));
     }
 
-    public void sendPacketAsByte(byte[] packetContent, String destinationIP, int port) throws IOException {
+    public void sendPacketAsRawBytes(byte[] packetContent, String destinationIP, int port) throws IOException {
         InetAddress destinationAddress = InetAddress.getByName(destinationIP);
         DatagramPacket sentPacket = new DatagramPacket(packetContent, packetContent.length,destinationAddress,port);
         this.datagramSocket.send(sentPacket);

@@ -10,13 +10,11 @@ public class Test_listen_unicast {
 
         System.out.println("Host IP: " + udpListener.getHostIPAddress());
 
-        while (true){
+        while (true) {
             byte[] data = udpListener.getPacketAsRawBytes(8);
-            if (data.toString().isEmpty()==false){
-                System.out.println("received: " + Arrays.toString(data));
-                System.out.println("in Hex form: " + DataFormatUtils.byteArrToHEXCharList(data));
-                System.out.println("String form: " + DataFormatUtils.byteArrToStr(data));
-            }
+            System.out.println("received: " + Arrays.toString(data));
+            System.out.println("in Hex form: " + DataFormatUtils.byteArrToHEXCharList(data));
+            System.out.println("String form: " + DataFormatUtils.byteArrToStr(data));
         }
     }
 }
