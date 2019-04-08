@@ -3,7 +3,7 @@ import com.y4n.UDP.UDPMulticastSender;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
-public class Test_send_multicast {
+public class Main {
     public static void main(String[] args) throws IOException, InterruptedException {
         UDPMulticastSender udpMuticaster = new UDPMulticastSender();
         System.out.println(udpMuticaster.getMulticastIP());

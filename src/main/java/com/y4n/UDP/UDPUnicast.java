@@ -1,6 +1,6 @@
-package UDPServer;
+package com.y4n.UDP;
 
-import Utils.DataFormatUtils;
+import com.y4n.Utils.DataFormatUtils;
 
 import java.io.IOException;
 import java.net.*;

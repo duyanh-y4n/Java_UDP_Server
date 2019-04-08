@@ -1,4 +1,4 @@
-package Utils;
+package com.y4n.Utils;
 
 import java.util.ArrayList;
 import java.util.List;

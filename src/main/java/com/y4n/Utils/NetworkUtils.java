@@ -1,4 +1,4 @@
-package Utils;
+package com.y4n.Utils;
 
 import java.net.InetAddress;
 import java.net.NetworkInterface;

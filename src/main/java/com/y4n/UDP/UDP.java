@@ -1,7 +1,6 @@
-package UDPServer;
+package com.y4n.UDP;
 
-import Utils.NetworkUtils;
-
+import com.y4n.Utils.*;
 import java.io.IOException;
 import java.net.*;
 
@@ -9,10 +8,10 @@ import java.net.*;
 
 public class UDP {
     protected final int DEFAULT_BUFFER_LENGTH = 1024;
-    protected final int DEFAULT_UNICAST_PORT = 8080;
+    protected final int DEFAULT_LOCAL_PORT = 8080;
     protected final String DEFAULT_MULTICAST_IP = "224.0.0.0";
     protected final int DEFAULT_MULTICAST_PORT = 8080;
-    protected int port;
+    protected int port; //local port
     protected int multicastPort;
     protected InetAddress hostAddress;
     protected InetAddress multicastAddress;
@@ -22,12 +21,12 @@ public class UDP {
 
     // by default is as sender
     public UDP() throws IOException {
-        this.port = DEFAULT_UNICAST_PORT;
+        this.port = DEFAULT_LOCAL_PORT;
         this.hostAddress = NetworkUtils.getLocalHostAddress();
     }
 
-    public UDP(int port) throws SocketException, UnknownHostException {
-        this.port = port;
+    public UDP(int localPort) throws SocketException, UnknownHostException {
+        this.port = localPort;
         this.hostAddress = NetworkUtils.getLocalHostAddress();
     }
 
@@ -75,7 +74,7 @@ public class UDP {
 
     //Setup Unicast
     public void setupUnicastSocket() throws SocketException {
-        this.datagramSocket = new DatagramSocket(DEFAULT_UNICAST_PORT);
+        this.datagramSocket = new DatagramSocket(DEFAULT_LOCAL_PORT);
     }
 
     public void setupUnicastSocket(int port) throws SocketException {
