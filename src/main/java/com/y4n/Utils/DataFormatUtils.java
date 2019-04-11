@@ -98,4 +98,17 @@ public class DataFormatUtils {
         }
         return data;
     }
+
+    public static byte[] concatBytesArr(byte[] a, byte[] b){
+        byte[] c = new byte[a.length + b.length];
+        System.arraycopy(a, 0, c, 0, a.length);
+        System.arraycopy(b, 0, c, a.length, b.length);
+        return c;
+    }
+
+    public static byte[] getSubBytesArr(byte[] input, int begin, int end){
+        byte[] result = new byte[end-begin];
+        System.arraycopy(input,begin,result,0,end-begin);
+        return result;
+    }
 }
