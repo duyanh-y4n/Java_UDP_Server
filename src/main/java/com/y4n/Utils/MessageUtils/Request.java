@@ -1,8 +1,10 @@
 package com.y4n.Utils.MessageUtils;
 
-public abstract class Request extends Message {
-    private int RequestID;
-    private int RequestType;
+public abstract class Request<T, E> extends Message {
+    private int requestID;
+    private int requestType;
+    private T headerDAO;
+    private E bodyDAO;
 
     public Request(byte[] rawContent) {
         super(rawContent);
@@ -12,7 +14,20 @@ public abstract class Request extends Message {
         super(header, body);
     }
 
-    public abstract void getRequestType();
+    public int getRequestType(){
+        return this.requestType;
+    };
 
-    public abstract void getRequestID();
+    public int getRequestID(){
+        return this.requestID;
+    };
+
+    public T getHeaderDAO() {
+        return this.headerDAO;
+    }
+
+    public abstract T parseHeaderDTO();
+
+    public abstract E parseBodyDTO();
+
 }

@@ -1,6 +1,6 @@
 package com.y4n.Utils.MessageUtils;
 
-public class RequestType {
+public class RequestTypes {
     public static final byte CREATE = 0x01;
     public static final byte READ = 0x02;
     public static final byte UPDATE = 0x03;
