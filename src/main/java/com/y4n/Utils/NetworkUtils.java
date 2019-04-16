@@ -10,7 +10,7 @@ import java.util.HashMap;
 public class NetworkUtils {
     private static HashMap<String, InetAddress> localMachineAddresses = getMachineNetWorkInterfaceIpAddress();
 
-    public static HashMap<String,InetAddress> getMachineNetWorkInterfaceIpAddress() {
+    public static HashMap<String, InetAddress> getMachineNetWorkInterfaceIpAddress() {
         String ip;
         HashMap<String, InetAddress> localMachineAddresses = new HashMap<String, InetAddress>();
         try {
@@ -56,5 +56,9 @@ public class NetworkUtils {
 
     public static InetAddress initMulticastAddress(String ip) throws UnknownHostException {
         return InetAddress.getByName(ip);
+    }
+
+    public static byte[] getLocalIPAsRawBytes() {
+        return getLocalHostAddress().getAddress();
     }
 }

@@ -25,6 +25,10 @@ public class UDPMulticastSender extends UDP{
     }
 
     //more send packet methods
+    public void sendPacket(byte[] packetContent) throws IOException {
+        this.sendMulticastPacket(packetContent);
+    }
+
     public void sendPacket(int[] packetContent) throws IOException {
         this.sendMulticastPacket(DataFormatUtils.intArrToByteArr(packetContent));
     }

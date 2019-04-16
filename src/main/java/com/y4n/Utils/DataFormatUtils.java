@@ -111,4 +111,11 @@ public class DataFormatUtils {
         System.arraycopy(input,begin,result,0,end-begin);
         return result;
     }
+
+    public static byte[] getShortNumAsBytes(short num) {
+        byte[] data = new byte[2];
+        data[1] = (byte) (num & 0xFF);
+        data[0] = (byte) ((num >> 8) & 0xFF);
+        return data;
+    }
 }

@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.net.*;
 
 // TODO: write unit test
+// TODO: change all port to type short
 
 public class UDP {
     protected final int DEFAULT_BUFFER_LENGTH = 1024;

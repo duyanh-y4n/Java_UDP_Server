@@ -1,9 +1,7 @@
 package com.y4n.Utils.MessageUtils;
 
-public abstract class Response<T,E> extends Message {
+public class Response extends Message {
     private int responseType;
-    private T headerDTO;
-    private E bodyDTO;
     private Request correspondingRequest;
 
     public Response(byte[] rawContent) {
@@ -30,24 +28,11 @@ public abstract class Response<T,E> extends Message {
         return this.responseType;
     }
 
-    public T getHeaderDTO() {
-        return this.headerDTO;
-    }
-
     public Request getCorrespondingRequest() {
         return this.correspondingRequest;
     }
 
-    public void setHeaderDTO(T headerDTO) {
-        this.headerDTO = headerDTO;
-    }
-
-
     public void setResponseType(int responseType){
         this.responseType = responseType;
     };
-
-    public abstract void compileBodyDTOtoBytes(); //change headerDTO to rawBytes
-
-    public abstract void compileHeaderDTOtoBytes(); //change headerDTO to rawBytes
 }
