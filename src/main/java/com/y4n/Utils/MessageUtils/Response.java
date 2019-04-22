@@ -1,5 +1,7 @@
 package com.y4n.Utils.MessageUtils;
 
+import com.y4n.Utils.MessageUtils.Enum.ResponseType;
+
 public class Response extends Message {
     private int responseType;
     private Request correspondingRequest;
@@ -20,7 +22,7 @@ public class Response extends Message {
 
     public Response(Request correspondingRequest){
         super();
-        this.responseType = ResponseTypes.CONFIRMATION;
+        this.responseType = ResponseType.NONE.ordinal();
         this.correspondingRequest = correspondingRequest;
     }
 
