@@ -1,6 +1,7 @@
 package com.y4n.UDP;
 
 import com.y4n.Utils.*;
+
 import java.io.IOException;
 import java.net.*;
 
@@ -46,15 +47,15 @@ public class UDP {
 
     public int getMulticastPort() {
         try {
-            if (multicastPort==0) throw new NullPointerException();
-        } catch (NullPointerException e){
+            if (multicastPort == 0) throw new NullPointerException();
+        } catch (NullPointerException e) {
             System.out.println("Multicast is not setup");
             return 0;
         }
         return this.multicastPort;
     }
 
-    public String getMulticastIP(){
+    public String getMulticastIP() {
         return this.multicastAddress.getHostAddress();
     }
 
@@ -153,5 +154,10 @@ public class UDP {
         DatagramPacket sentPacket = new DatagramPacket(packetContent, packetContent.length,
                 this.multicastAddress, this.multicastPort);
         this.multicastSocket.send(sentPacket);
+    }
+
+    public void close() {
+        if (this.datagramSocket != null) this.datagramSocket.close();
+        if (this.multicastSocket != null) this.multicastSocket.close();
     }
 }

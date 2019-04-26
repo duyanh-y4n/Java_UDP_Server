@@ -1,18 +1,15 @@
 package com.y4n.Utils;
 
-import java.net.InetAddress;
-import java.net.NetworkInterface;
-import java.net.SocketException;
-import java.net.UnknownHostException;
+import java.net.*;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
 
 public class NetworkUtils {
-    private static HashMap<String, InetAddress> localMachineAddresses = getMachineNetWorkInterfaceIpAddress();
+    private static ArrayList<InetAddress> localMachineAddresses = getMachineNetWorkInterfaceIpAddress();
 
-    public static HashMap<String, InetAddress> getMachineNetWorkInterfaceIpAddress() {
-        String ip;
-        HashMap<String, InetAddress> localMachineAddresses = new HashMap<String, InetAddress>();
+    public static ArrayList<InetAddress> getMachineNetWorkInterfaceIpAddress() {
+        ArrayList<InetAddress> localMachineAddresses = new ArrayList<InetAddress>();
         try {
             Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
             while (interfaces.hasMoreElements()) {
@@ -24,8 +21,7 @@ public class NetworkUtils {
                 Enumeration<InetAddress> addresses = iface.getInetAddresses();
                 while (addresses.hasMoreElements()) {
                     InetAddress addr = addresses.nextElement();
-                    localMachineAddresses.put(iface.getDisplayName(), addr);
-                    ip = addr.getHostAddress();
+                    localMachineAddresses.add(addr);
                 }
             }
             return localMachineAddresses;
@@ -35,19 +31,25 @@ public class NetworkUtils {
     }
 
     public static void printLocalMachineAddresses() {
-        for (String addressDisplayName :
-                localMachineAddresses.keySet()) {
-            System.out.println("Network interface: " + addressDisplayName + " - IP Adress: "
-                    + localMachineAddresses.get(addressDisplayName).getHostAddress());
+        for (InetAddress addressDisplayName :
+                localMachineAddresses) {
+            System.out.println("IP Adress: "
+                    + addressDisplayName.getHostAddress());
+            System.out.println(addressDisplayName.getClass());
         }
     }
 
-    public static HashMap<String, InetAddress> getLocalMachineAddresses() {
-        return localMachineAddresses;
-    }
-
     public static InetAddress getLocalHostAddress() {
-        return localMachineAddresses.get("wlp13s0");//Network interface = wlp13s0
+        for (InetAddress addressDisplayName :
+                localMachineAddresses) {
+            if (addressDisplayName.getClass()==Inet4Address.class) return addressDisplayName;
+        }
+        try {
+            return Inet4Address.getLocalHost();
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+            return Inet4Address.getLoopbackAddress();
+        }
     }
 
     public static String getLocalHostIP() {
